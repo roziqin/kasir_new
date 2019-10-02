@@ -1,10 +1,20 @@
 <?php
+$con = mysqli_connect("localhost","root","","kasir_new");
 $ket = $_GET['ket'];
 
-if ($ket=='omset') {
+if ($ket=='omset' || $ket=='kasir') {
+	if ($ket=='kasir') {
+		$kasir = '';
+		$col = 'col-md-6';
+		$btn = 'btn-proses-laporan-kasir';
+	} else {
+		$kasir = 'hidden';
+		$col = 'col-md-8';
+		$btn = 'btn-proses-laporan-omset';
+	}
 ?>
-<div class="row">
-	<div class="col-md-8">
+<div class="row justify-content-md-center">
+	<div class="col-md-10">
 		<div class="row">
 			<div class="col-md-2">
 			    <div class="md-form">
@@ -14,7 +24,21 @@ if ($ket=='omset') {
 			        </select>
 			    </div>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-2 <?php echo $kasir; ?>">
+			    <div class="md-form">
+			        <select class="mdb-select md-form" id="defaultForm-kasir" name="ip-kasir">
+	                    <option value="" disabled selected>Pilih Kasir</option>
+	                <?php
+	                	$sql="SELECT * from users";
+	                  	$result=mysqli_query($con,$sql);
+	                  	while ($data1=mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+	                      	echo "<option value='$data1[id]'>$data1[name]</option>";
+	                  	}
+	                ?>
+			        </select>
+			    </div>
+			</div>
+			<div class="<?php echo $col; ?>">
 				<div class="row form-date">
 					<div class="col-md-6">
 			            <div class="md-form">
@@ -29,47 +53,136 @@ if ($ket=='omset') {
 				</div>
 				<div class="row form-month hidden">
 					<div class="col-md-6">
-			            <div class="md-form">
-							<input type="text" id="defaultForm-startmonth" class="form-control validate mb-3" name="ip-startmonth">
-							<label for="defaultForm-startmonth">Start Month</label>
+			            <div class="md-form m-0">
+			            	<div class="row">
+				            	<div class="col-md-6">
+							        <select class="mdb-select md-form" id="startmonth" name="ip-startmonth">
+					                    <option value="" disabled selected>Bulan Mulai</option>
+							            <option value="01">01</option>
+							            <option value="02">02</option>
+							            <option value="03">03</option>
+							            <option value="04">04</option>
+							            <option value="05">05</option>
+							            <option value="06">06</option>
+							            <option value="07">07</option>
+							            <option value="08">08</option>
+							            <option value="09">09</option>
+							            <option value="10">10</option>
+							            <option value="11">11</option>
+							            <option value="12">12</option>
+							        </select>
+				            	</div>
+				            	<div class="col-md-6">
+							        <select class="mdb-select md-form" id="startyear" name="ip-startyear">
+					                    <option value="" disabled selected>Tahun Mulai</option>
+							            <option value="2018">2018</option>
+							            <option value="2019">2019</option>
+							            <option value="2020">2020</option>
+							            <option value="2021">2021</option>
+							            <option value="2022">2022</option>
+							            <option value="2023">2023</option>
+							        </select>
+				            	</div>
+				            </div>
 			            </div>
 					</div>
 					<div class="col-md-6">
-			            <div class="md-form">
-							<input type="text" id="defaultForm-endmonth" class="form-control validate mb-3" name="ip-endmonth">
-							<label for="defaultForm-endmonth">End Month</label>
+			            <div class="md-form m-0">
+			            	<div class="row">
+				            	<div class="col-md-6">
+							        <select class="mdb-select md-form" id="endmonth" name="ip-endmonth">
+					                    <option value="" disabled selected>Bulan Sampai</option>
+							            <option value="01">01</option>
+							            <option value="02">02</option>
+							            <option value="03">03</option>
+							            <option value="04">04</option>
+							            <option value="05">05</option>
+							            <option value="06">06</option>
+							            <option value="07">07</option>
+							            <option value="08">08</option>
+							            <option value="09">09</option>
+							            <option value="10">10</option>
+							            <option value="11">11</option>
+							            <option value="12">12</option>
+							        </select>
+				            	</div>
+				            	<div class="col-md-6">
+							        <select class="mdb-select md-form" id="endyear" name="ip-endyear">
+					                    <option value="" disabled selected>Tahun Sampai</option>
+							            <option value="2018">2018</option>
+							            <option value="2019">2019</option>
+							            <option value="2020">2020</option>
+							            <option value="2021">2021</option>
+							            <option value="2022">2022</option>
+							            <option value="2023">2023</option>
+							        </select>
+				            	</div>
+				            </div>
 			            </div>
 			        </div>
 				</div>
 			</div>
 			<div class="col-md-2">
 			    <div class="md-form">
-			    	<button class="btn btn-primary btn-proses-laporan">Proses</button>
+			    	<button class="btn btn-primary <?php echo $btn; ?>">Proses</button>
 			    </div>
 			</div>
 		</div>	
 		<div class="row">
 			<div class="col-md-12">
-				<table id="table-omset" class="table table-striped table-bordered" style="width:100%">
-			        <thead>
-			            <tr>
-                            <th>tanggal</th>
-                            <th style="text-align: right;">Cash</th>
-                            <th style="text-align: right;">Debet</th>
-                            <th style="text-align: right;">online</th>
-                            <th>total omset</th>
-			            </tr>
-			        </thead>
-			        <tfoot>
-			            <tr>
-                            <th>tanggal</th>
-                            <th style="text-align: right;">Cash</th>
-                            <th style="text-align: right;">Debet</th>
-                            <th style="text-align: right;">online</th>
-                            <th>total omset</th>
-			            </tr>
-			        </tfoot>
-			    </table>
+				<?php
+				if ($ket=='kasir') {
+				?>
+					<table id="table-kasir" class="table table-striped table-bordered" style="width:100%">
+				        <thead>
+				            <tr>
+	                            <th>tanggal</th>
+	                            <th>kasir</th>
+	                            <th style="text-align: right;">Cash</th>
+	                            <th style="text-align: right;">Debet</th>
+	                            <th style="text-align: right;">online</th>
+	                            <th>total omset</th>
+				            </tr>
+				        </thead>
+				        <tfoot>
+				            <tr>
+	                            <th>tanggal</th>
+	                            <th>kasir</th>
+	                            <th style="text-align: right;">Cash</th>
+	                            <th style="text-align: right;">Debet</th>
+	                            <th style="text-align: right;">online</th>
+	                            <th>total omset</th>
+				            </tr>
+				        </tfoot>
+				    </table>
+
+
+				<?php
+				} else {
+				?>
+					<table id="table-omset" class="table table-striped table-bordered" style="width:100%">
+				        <thead>
+				            <tr>
+	                            <th>tanggal</th>
+	                            <th style="text-align: right;">Cash</th>
+	                            <th style="text-align: right;">Debet</th>
+	                            <th style="text-align: right;">online</th>
+	                            <th>total omset</th>
+				            </tr>
+				        </thead>
+				        <tfoot>
+				            <tr>
+	                            <th>tanggal</th>
+	                            <th style="text-align: right;">Cash</th>
+	                            <th style="text-align: right;">Debet</th>
+	                            <th style="text-align: right;">online</th>
+	                            <th>total omset</th>
+				            </tr>
+				        </tfoot>
+				    </table>
+				<?php
+				}
+				?>
 			</div>
 		</div>
 	</div>
@@ -77,7 +190,7 @@ if ($ket=='omset') {
 
 <?php
 } elseif ($ket=='kasir') {
-	echo "Kasir";
+
 
 } elseif ($ket=='menu') {
 	echo "Menu";
@@ -97,7 +210,11 @@ if ($ket=='omset') {
 			if ($(this).val()=="harian") {
 
 	            $("#defaultForm-startdate").val('');
-	            $("#defaultForm-startmonth").val('');
+	            $("#startmonth").val('');
+	            $("#startyear").val('');
+	            $("#endmonth").val('');
+	            $("#endyear").val('');
+
 	           
 	            $(".form-month").addClass('hidden');
 	            $(".form-date").removeClass('hidden');
@@ -105,7 +222,10 @@ if ($ket=='omset') {
 			} else if ($(this).val()=="bulanan") {
 	        
 	            $("#defaultForm-startdate").val('');
-	            $("#defaultForm-startmonth").val('');
+	            $("#startmonth").val('');
+	            $("#startyear").val('');
+	            $("#endmonth").val('');
+	            $("#endyear").val('');
 
 	            $(".form-month").removeClass('hidden');
 	            $(".form-date").addClass('hidden');
@@ -130,7 +250,7 @@ if ($ket=='omset') {
 		            "21","22","23","24","25","26","27","28","29","30","31"];
 
 		
-		$('.btn-proses-laporan').on('click',function(){
+		$('.btn-proses-laporan-omset').on('click',function(){
 			var daterange = $('#daterange').val();
 
 			if (daterange=='harian') {
@@ -141,8 +261,8 @@ if ($ket=='omset') {
 				
 			} else if (daterange=='bulanan') {
 
-	          	var start = $('#defaultForm-startmonth').val();
-	          	var end = $('#defaultForm-endmonth').val();
+	          	var start = $("#startyear").val()+"-"+$("#startmonth").val();
+	          	var end = $("#endyear").val()+"-"+$("#endmonth").val();
 	          	var kettext = 'transaksi_bulan';
 				
 			}
@@ -158,19 +278,40 @@ if ($ket=='omset') {
             		end:end
             	},
 		        success:function(data){
-		        	$('#table-omset').DataTable( {
-					    paging: false,
-					    searching: false,
-					    data: data,
-					    columns: [
-					        { data: kettext },
-					        { data: 'cash' },
-					        { data: 'debet' },
-					        { data: 'online' },
-					        { data: 'total' }
-					    ]
-					} );
-		        	console.log("success");
+		        	$('#table-omset').DataTable().clear().destroy();
+		        	if (kettext=='transaksi_bulan') {
+			        	$('#table-omset').DataTable( {
+						    paging: false,
+						    searching: false,
+						    ordering: false,
+						    data: data,
+						    columns: [
+						        { data: 'transaksi_bulan' },
+						        { data: 'cash' },
+						        { data: 'debet' },
+						        { data: 'online' },
+						        { data: 'total' }
+						    ]
+						} );
+
+		        	} else if (kettext=='transaksi_tanggal') {
+			        	$('#table-omset').DataTable( {
+						    paging: false,
+						    searching: false,
+						    ordering: false,
+						    data: data,
+						    columns: [
+						        { data: 'transaksi_tanggal' },
+						        { data: 'cash' },
+						        { data: 'debet' },
+						        { data: 'online' },
+						        { data: 'total' }
+						    ]
+						} );
+
+		        	} 
+
+		        	console.log("success "+kettext);
 		        	console.log(data);
 		        }
 		    });
@@ -264,8 +405,82 @@ if ($ket=='omset') {
 		        }
 		    });
 		    */
+		});
+
+	
+		$('.btn-proses-laporan-kasir').on('click',function(){
+			var daterange = $('#daterange').val();
+			var kasir = $('#defaultForm-kasir').val();
+
+			if (daterange=='harian') {
+
+	          	var start = $('#defaultForm-startdate').val();
+	          	var end = $('#defaultForm-enddate').val();
+	          	var kettext = 'transaksi_tanggal';
+				
+			} else if (daterange=='bulanan') {
+
+	          	var start = $("#startyear").val()+"-"+$("#startmonth").val();
+	          	var end = $("#endyear").val()+"-"+$("#endmonth").val();
+	          	var kettext = 'transaksi_bulan';
+				
+			}
+
+			
+			$.ajax({
+		        type:'POST',
+		        url:'api/view.api.php?func=laporan-kasir',
+		        dataType: "json",
+            	data:{
+            		daterange:daterange,
+            		start:start,
+            		end:end,
+            		kasir:kasir
+            	},
+		        success:function(data){
+		        	console.log(kasir);
+		        	$('#table-kasir').DataTable().clear().destroy();
+		        	if (kettext=='transaksi_bulan') {
+			        	$('#table-kasir').DataTable( {
+						    paging: false,
+						    searching: false,
+						    ordering: false,
+						    data: data,
+						    columns: [
+						        { data: 'transaksi_bulan' },
+						        { data: 'kasir' },
+						        { data: 'cash' },
+						        { data: 'debet' },
+						        { data: 'online' },
+						        { data: 'total' }
+						    ]
+						} );
+
+		        	} else if (kettext=='transaksi_tanggal') {
+			        	$('#table-kasir').DataTable( {
+						    paging: false,
+						    searching: false,
+						    ordering: false,
+						    data: data,
+						    columns: [
+						        { data: 'transaksi_tanggal' },
+						        { data: 'kasir' },
+						        { data: 'cash' },
+						        { data: 'debet' },
+						        { data: 'online' },
+						        { data: 'total' }
+						    ]
+						} );
+
+		        	} 
+
+		        	console.log("success "+kettext);
+		        	console.log(data);
+		        }
+		    });
 		});            
 	});
+
 /*
 if ($("main").hasClass("dashboard") == true) {
 

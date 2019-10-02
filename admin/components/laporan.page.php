@@ -23,7 +23,7 @@
 	<main class="pt-4 produk pl-3 pr-3 mr-0">
 		<div class="main-wrapper">
 		    <div class="container-fluid">
-				<div class="row mt-2">
+				<div class="row mt-2 ">
 					<div class="col-md-12 container__load">
 						
 					</div>

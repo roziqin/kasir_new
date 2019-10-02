@@ -67,12 +67,39 @@ if ($func=='dasboard-omset') {
 	$sql = mysqli_query($con, "SELECT transaksi_id FROM transaksi WHERE $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket"); // Query untuk menghitung seluruh data siswa
 	$sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 	$query ="SELECT transaksi_tanggal, transaksi_bulan, sum(transaksi_total) as total, sum(transaksi_diskon) as diskon from transaksi WHERE $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket  ";
+
+}  elseif ($func=='laporan-kasir') {
+	
+    $kasir = $_POST['kasir'];
+
+    if ($kasir==0) {
+        $text1 = '';
+        $text2 = ', transaksi_user';
+    } else {
+        $text1 = 'transaksi_user='.$kasir.' and ';
+        $text2 = '';
+
+    }
+
+    if ($_POST['daterange']=="harian") {
+        $ket = "transaksi_tanggal"; 
+		$tgl11 = date("Y-m-j", strtotime($_POST['start']));
+	    $tgl22 = date("Y-m-j", strtotime($_POST['end']));
+    } elseif ($_POST['daterange']=="bulanan") {
+        $ket = "transaksi_bulan";     
+		$tgl11 = date("Y-m", strtotime($_POST['start']));
+	    $tgl22 = date("Y-m", strtotime($_POST['end']));
+    }
+
+	$sql = mysqli_query($con, "SELECT transaksi_id FROM transaksi, users WHERE transaksi_user=id and $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket");
+	$sql_count = mysqli_num_rows($sql);
+	$query ="SELECT transaksi_tanggal, transaksi_bulan, sum(transaksi_total) as total, sum(transaksi_diskon) as diskon, transaksi_user, id, name from transaksi, users WHERE transaksi_user=id and $text1 $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket $text2 ";
 }
 
 
 $result = mysqli_query($con,$query);
 $array_data = array();
-if ($func=="laporan-omset") {
+if ($func=="laporan-omset" || $func=="laporan-kasir") {
 	
 	if ($_POST['daterange']=="harian") {
         $ket = "transaksi_tanggal"; 
@@ -83,9 +110,16 @@ if ($func=="laporan-omset") {
     //$ket = "transaksi_tanggal";
 	while($data = mysqli_fetch_assoc($result))
 	{
+		if ($func=="laporan-kasir") {
+	        $text = 'transaksi_user='.$data['id'].' and ';
+            $text1 = '';
+	    } else {
+	    	$text = '';
+            $text1 = ', transaksi_user';
+	    }
 
 		$tglket = $data[$ket];
-        $sqlcash="SELECT sum(transaksi_total) as total from transaksi WHERE $ket='$tglket' and transaksi_type_bayar='GoResto' GROUP BY $ket  ";
+        $sqlcash="SELECT sum(transaksi_total) as total from transaksi WHERE $text $ket='$tglket' and transaksi_type_bayar='Cash' GROUP BY $ket $text1 ";
         $querycash=mysqli_query($con, $sqlcash);
         $datacash=mysqli_fetch_assoc($querycash);
         $totalcash = 0;
@@ -93,7 +127,7 @@ if ($func=="laporan-omset") {
             $totalcash = $datacash['total'];
         }
 		
-        $sqlonline="SELECT sum(transaksi_total) as total from transaksi WHERE $ket='$tglket' and transaksi_type_bayar='GoResto' GROUP BY $ket  ";
+        $sqlonline="SELECT sum(transaksi_total) as total from transaksi WHERE $text $ket='$tglket' and transaksi_type_bayar='GoResto' GROUP BY $ket $text1 ";
         $queryonline=mysqli_query($con, $sqlonline);
         $dataonline=mysqli_fetch_assoc($queryonline);
         $totalonline = 0;
@@ -101,7 +135,7 @@ if ($func=="laporan-omset") {
             $totalonline = $dataonline['total'];
         }
 
-        $sqldebet="SELECT sum(transaksi_total) as total from transaksi WHERE $ket='$tglket' and transaksi_type_bayar='Debet' GROUP BY $ket  ";
+        $sqldebet="SELECT sum(transaksi_total) as total from transaksi WHERE $text $ket='$tglket' and transaksi_type_bayar='Debet' GROUP BY $ket $text1 ";
         $querydebet=mysqli_query($con, $sqldebet);
         $datadebet=mysqli_fetch_assoc($querydebet);
         $totaldebet = 0;
@@ -110,7 +144,9 @@ if ($func=="laporan-omset") {
         }
         
 	  //$array_data[]=($ket=>$data[$ket], 'cash'=>$totalcash, 'debet'=>$totaldebet, 'online'=>$totalonline);
-
+        if ($func=="laporan-kasir") {
+			$row_array['kasir'] = $data['name'];
+        }
 		$row_array[$ket] = $data[$ket];
 	    $row_array['cash'] = $totalcash;
 	    $row_array['debet'] = $totaldebet;
