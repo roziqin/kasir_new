@@ -1,7 +1,7 @@
 <?php include '../modals/produk.modal.php'; ?>
 
-    <button class="btn btn-primary" data-toggle="modal" data-target="#modaltambahproduk">Tambah Produk <i class="fas fa-box-open ml-1"></i></button>
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <button class="btn btn-primary btn-tambah-produk" data-toggle="modal" data-target="#modalproduk">Tambah Produk <i class="fas fa-box-open ml-1"></i></button>
+    <table id="example" class="table table-striped table-bordered fadeInLeft slow animated" style="width:100%">
         <thead>
             <tr>
                 <th>nama</th>
@@ -10,6 +10,7 @@
                 <th>harga beli</th>
                 <th>harga jual</th>
                 <th>harga online</th>
+                <th>foto produk</th>
                 <th></th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
                 <th>harga beli</th>
                 <th>harga jual</th>
                 <th>harga online</th>
+                <th>foto produk</th>
                 <th></th>
             </tr>
         </tfoot>
@@ -31,6 +33,27 @@
     <script type="text/javascript">
       
     $(document).ready(function() {
+
+        $('.btn-tambah-produk').on('click',function(){
+
+            $('#modalproduk h4.modal-title').text('Tambah Produk');
+            $("#modalproduk #update-produk").addClass('hidden');
+            $("#modalproduk #submit-produk").removeClass('hidden');
+            $("#modalproduk label").removeClass("active");
+            $("#modalproduk #defaultForm-id").val('');
+            $("#modalproduk #defaultForm-nama").val('');
+            $("#modalproduk #defaultForm-kategori").val('');
+            $("#modalproduk #defaultForm-beli").val('');
+            $("#modalproduk #defaultForm-jual").val('');
+            $("#modalproduk #defaultForm-jual-online").val('');
+            $("#modalproduk #defaultForm-setstok").val('');
+            $("#modalproduk #defaultForm-stok").val('');
+            $("#modalproduk #defaultForm-batas-stok").val('');
+            $("#modalproduk #defaultForm-disable").val('');
+            $("#modalproduk #textimage").val('');
+            $("#modalproduk #image").val('');
+        });
+
         $('#example').DataTable( {
             "processing": true,
             "serverSide": true,
@@ -48,9 +71,13 @@
                 { "data": "barang_harga_jual" },
                 { "data": "barang_harga_jual_online" },
 
+                { "width": "110px", "render": function(data, type, full){
+                   return '<img width="50" src="../assets/img/produk/' + full['barang_image'] + '" >';
+                  }
+                },
                 { "width": "150px", "render": function(data, type, full){
-                   return '<a class="btn-floating btn-sm btn-default mr-2 btn-edit" data-toggle="modal" data-target="#modaleditproduk" data-id="' + full['barang_id'] + '" title="Edit"><i class="fas fa-pen"></i></a> <a class="btn-floating btn-sm btn-danger btn-remove" data-id="' + full['barang_id'] + '" title="Delete"><i class="fas fa-trash"></i></a>';
-                }
+                   return '<a class="btn-floating btn-sm btn-default mr-2 btn-edit" data-toggle="modal" data-target="#modalproduk" data-id="' + full['barang_id'] + '" title="Edit"><i class="fas fa-pen"></i></a> <a class="btn-floating btn-sm btn-danger btn-remove" data-id="' + full['barang_id'] + '" title="Delete"><i class="fas fa-trash"></i></a>';
+                  }
                 },
             ],
             "initComplete": function( settings, json ) {
@@ -63,17 +90,22 @@
                       dataType: "json",
                       data:{produk_id:produk_id},
                       success:function(data){
-                          $("#modaleditproduk label").addClass("active");
-                          $("#modaleditproduk #defaultForm-id").val(produk_id);
-                          $("#modaleditproduk #defaultForm-nama").val(data[0].barang_nama);
-                          $("#modaleditproduk #defaultForm-kategori").val(data[0].barang_kategori);
-                          $("#modaleditproduk #defaultForm-beli").val(data[0].barang_harga_beli);
-                          $("#modaleditproduk #defaultForm-jual").val(data[0].barang_harga_jual);
-                          $("#modaleditproduk #defaultForm-jual-online").val(data[0].barang_harga_jual_online);
-                          $("#modaleditproduk #defaultForm-setstok").val(data[0].barang_set_stok);
-                          $("#modaleditproduk #defaultForm-stok").val(data[0].barang_stok);
-                          $("#modaleditproduk #defaultForm-batas-stok").val(data[0].barang_batas_stok);
-                          $("#modaleditproduk #defaultForm-disable").val(data[0].barang_disable);
+                          $('#modalproduk h4.modal-title').text('Edit Produk');
+                          $("#modalproduk #update-produk").removeClass('hidden');
+                          $("#modalproduk #submit-produk").addClass('hidden');
+                          $("#modalproduk label").addClass("active");
+                          $("#modalproduk #defaultForm-id").val(produk_id);
+                          $("#modalproduk #defaultForm-nama").val(data[0].barang_nama);
+                          $("#modalproduk #defaultForm-kategori").val(data[0].barang_kategori);
+                          $("#modalproduk #defaultForm-beli").val(data[0].barang_harga_beli);
+                          $("#modalproduk #defaultForm-jual").val(data[0].barang_harga_jual);
+                          $("#modalproduk #defaultForm-jual-online").val(data[0].barang_harga_jual_online);
+                          $("#modalproduk #defaultForm-setstok").val(data[0].barang_set_stok);
+                          $("#modalproduk #defaultForm-stok").val(data[0].barang_stok);
+                          $("#modalproduk #defaultForm-batas-stok").val(data[0].barang_batas_stok);
+                          $("#modalproduk #defaultForm-disable").val(data[0].barang_disable);
+                          $("#modalproduk #textimage").val('');
+                          $("#modalproduk #image").val('');
 
                       }
                   });
@@ -90,17 +122,20 @@
                       dataType: "json",
                       data:{produk_id:produk_id},
                       success:function(data){
-                          $("#modaleditproduk label").addClass("active");
-                          $("#modaleditproduk #defaultForm-id").val(produk_id);
-                          $("#modaleditproduk #defaultForm-nama").val(data[0].barang_nama);
-                          $("#modaleditproduk #defaultForm-kategori").val(data[0].barang_kategori);
-                          $("#modaleditproduk #defaultForm-beli").val(data[0].barang_harga_beli);
-                          $("#modaleditproduk #defaultForm-jual").val(data[0].barang_harga_jual);
-                          $("#modaleditproduk #defaultForm-jual-online").val(data[0].barang_harga_jual_online);
-                          $("#modaleditproduk #defaultForm-setstok").val(data[0].barang_set_stok);
-                          $("#modaleditproduk #defaultForm-stok").val(data[0].barang_stok);
-                          $("#modaleditproduk #defaultForm-batas-stok").val(data[0].barang_batas_stok);
-                          $("#modaleditproduk #defaultForm-disable").val(data[0].barang_disable);
+                          $('#modalproduk h4.modal-title').text('Edit Produk');
+                          $("#modalproduk #update-produk").removeClass('hidden');
+                          $("#modalproduk #submit-produk").addClass('hidden');
+                          $("#modalproduk label").addClass("active");
+                          $("#modalproduk #defaultForm-id").val(produk_id);
+                          $("#modalproduk #defaultForm-nama").val(data[0].barang_nama);
+                          $("#modalproduk #defaultForm-kategori").val(data[0].barang_kategori);
+                          $("#modalproduk #defaultForm-beli").val(data[0].barang_harga_beli);
+                          $("#modalproduk #defaultForm-jual").val(data[0].barang_harga_jual);
+                          $("#modalproduk #defaultForm-jual-online").val(data[0].barang_harga_jual_online);
+                          $("#modalproduk #defaultForm-setstok").val(data[0].barang_set_stok);
+                          $("#modalproduk #defaultForm-stok").val(data[0].barang_stok);
+                          $("#modalproduk #defaultForm-batas-stok").val(data[0].barang_batas_stok);
+                          $("#modalproduk #defaultForm-disable").val(data[0].barang_disable);
 
                       }
                   });
@@ -114,7 +149,7 @@
                       buttons: {
                           confirm: {
                               text: 'Ya',
-                              btnClass: 'col-md-6 btn blue-gradient',
+                              btnClass: 'col-md-6 btn btn-primary',
                               action: function(){
                                   console.log(produk_id);
                                   
@@ -136,7 +171,7 @@
                           },
                           cancel: {
                               text: 'Tidak',
-                              btnClass: 'col-md-6 btn ripe-malinka-gradient text-white',
+                              btnClass: 'col-md-6 btn btn-danger text-white',
                               action: function(){
                                   console.log("tidak")
                                  

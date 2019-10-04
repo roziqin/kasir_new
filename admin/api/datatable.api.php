@@ -36,7 +36,34 @@ $order = " ORDER BY ".$_POST['columns'][$order_field]['data']." ".$order_ascdesc
 $sql_data = mysqli_query($con, $query.$order." LIMIT ".$limit." OFFSET ".$start); // Query untuk data yang akan di tampilkan
 $sql_filter = mysqli_query($con, $query); // Query untuk count jumlah data sesuai dengan filter pada textbox pencarian
 $sql_filter_count = mysqli_num_rows($sql_filter); // Hitung data yg ada pada query $sql_filter
-$data = mysqli_fetch_all($sql_data, MYSQLI_ASSOC); // Untuk mengambil data hasil query menjadi array
+
+if ($_GET['ket']=='produk') {
+	$data = array();
+	while($dataarray = mysqli_fetch_assoc($sql_data)) {
+
+		$row_array['barang_id'] = $dataarray['barang_id'];
+		$row_array['barang_nama'] = $dataarray['barang_nama'];
+		$row_array['kategori_nama'] = $dataarray['kategori_nama'];
+		$row_array['barang_harga_beli'] = $dataarray['barang_harga_beli'];
+		$row_array['barang_harga_jual'] = $dataarray['barang_harga_jual'];
+		$row_array['barang_harga_jual_online'] = $dataarray['barang_harga_jual_online'];
+		$row_array['barang_set_stok'] = $dataarray['barang_set_stok'];
+		$row_array['barang_stok'] = $dataarray['barang_stok'];
+		$row_array['barang_batas_stok'] = $dataarray['barang_batas_stok'];
+		$row_array['barang_disable'] = $dataarray['barang_disable'];
+		if ($dataarray['barang_image']=='') {
+			$row_array['barang_image'] = 'default.jpg';
+		} else {
+			$row_array['barang_image'] = $dataarray['barang_image'];
+		}
+		
+
+        array_push($data,$row_array);
+	}
+} else {
+	$data = mysqli_fetch_all($sql_data, MYSQLI_ASSOC); // Untuk mengambil data hasil query menjadi array
+
+}
 $callback = array(
     'draw'=>$_POST['draw'], // Ini dari datatablenya
     'recordsTotal'=>$sql_count,

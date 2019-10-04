@@ -1,7 +1,7 @@
 <?php include '../modals/user.modal.php'; ?>
 
     <button class="btn btn-primary btn-tambah-user" data-toggle="modal" data-target="#modaluser">Tambah User <i class="fas fa-box-open ml-1"></i></button>
-    <table id="table-user" class="table table-striped table-bordered" style="width:100%">
+    <table id="table-user" class="table table-striped table-bordered fadeInLeft slow animated" style="width:100%">
         <thead>
             <tr>
                 <th>nama</th>
@@ -116,7 +116,7 @@
                       buttons: {
                           confirm: {
                               text: 'Ya',
-                              btnClass: 'col-md-6 btn blue-gradient',
+                              btnClass: 'col-md-6 btn btn-primary',
                               action: function(){
                                   console.log(id);
                                   
@@ -138,7 +138,7 @@
                           },
                           cancel: {
                               text: 'Tidak',
-                              btnClass: 'col-md-6 btn ripe-malinka-gradient text-white',
+                              btnClass: 'col-md-6 btn btn-danger text-white',
                               action: function(){
                                   console.log("tidak")
                                  

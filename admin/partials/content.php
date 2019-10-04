@@ -3,7 +3,11 @@
 
         include "components/dashboard.page.php";
 
-    } elseif ($_GET['menu']=='stok') {
+    } elseif ($_GET['menu']=='transaksi') {
+
+        include "components/transaksi.page.php";
+
+    }  elseif ($_GET['menu']=='stok') {
 
         include "components/stok.page.php";
 

@@ -1,5 +1,5 @@
 
-	<div class="container-fluid p-0">
+	<div class="container-fluid p-0 fadeIn animated">
 		<div class="row header-content pt-3 pb-3 info-color text-white">
 			<div class="col-md-12">
 				<h2>Stok</h2>
@@ -10,7 +10,7 @@
 		<div class="main-wrapper">
 		    <div class="container-fluid">
 				<div class="row mt-2">
-					<div class="col-md-12 container__load">
+					<div class="col-md-12 container__load fadeIn animated">
 
 					</div>
 				</div>
@@ -21,8 +21,6 @@
 
 	<?php include 'partials/footer.php'; ?>
 
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){

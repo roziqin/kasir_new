@@ -12,188 +12,316 @@ if ($ket=='omset' || $ket=='kasir') {
 		$col = 'col-md-8';
 		$btn = 'btn-proses-laporan-omset';
 	}
-?>
-<div class="row justify-content-md-center">
-	<div class="col-md-10">
-		<div class="row">
-			<div class="col-md-2">
-			    <div class="md-form">
-			        <select class="mdb-select md-form" id="daterange" name="ip-daterange">
-			            <option value="harian">Harian</option>
-			            <option value="bulanan">Bulanan</option>
-			        </select>
-			    </div>
-			</div>
-			<div class="col-md-2 <?php echo $kasir; ?>">
-			    <div class="md-form">
-			        <select class="mdb-select md-form" id="defaultForm-kasir" name="ip-kasir">
-	                    <option value="" disabled selected>Pilih Kasir</option>
-	                <?php
-	                	$sql="SELECT * from users";
-	                  	$result=mysqli_query($con,$sql);
-	                  	while ($data1=mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-	                      	echo "<option value='$data1[id]'>$data1[name]</option>";
-	                  	}
-	                ?>
-			        </select>
-			    </div>
-			</div>
-			<div class="<?php echo $col; ?>">
-				<div class="row form-date">
-					<div class="col-md-6">
-			            <div class="md-form">
-						  	<input placeholder="Start date" type="text" id="defaultForm-startdate" class="form-control datepicker">
-			            </div>
-					</div>
-					<div class="col-md-6">
-			            <div class="md-form">
-						  	<input placeholder="End date" type="text" id="defaultForm-enddate" class="form-control datepicker">
-			            </div>
-			        </div>
+	?>
+	<div class="row justify-content-md-center">
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-2">
+				    <div class="md-form">
+				        <select class="mdb-select md-form" id="daterange" name="ip-daterange">
+				            <option value="harian">Harian</option>
+				            <option value="bulanan">Bulanan</option>
+				        </select>
+				    </div>
 				</div>
-				<div class="row form-month hidden">
-					<div class="col-md-6">
-			            <div class="md-form m-0">
-			            	<div class="row">
-				            	<div class="col-md-6">
-							        <select class="mdb-select md-form" id="startmonth" name="ip-startmonth">
-					                    <option value="" disabled selected>Bulan Mulai</option>
-							            <option value="01">01</option>
-							            <option value="02">02</option>
-							            <option value="03">03</option>
-							            <option value="04">04</option>
-							            <option value="05">05</option>
-							            <option value="06">06</option>
-							            <option value="07">07</option>
-							            <option value="08">08</option>
-							            <option value="09">09</option>
-							            <option value="10">10</option>
-							            <option value="11">11</option>
-							            <option value="12">12</option>
-							        </select>
-				            	</div>
-				            	<div class="col-md-6">
-							        <select class="mdb-select md-form" id="startyear" name="ip-startyear">
-					                    <option value="" disabled selected>Tahun Mulai</option>
-							            <option value="2018">2018</option>
-							            <option value="2019">2019</option>
-							            <option value="2020">2020</option>
-							            <option value="2021">2021</option>
-							            <option value="2022">2022</option>
-							            <option value="2023">2023</option>
-							        </select>
-				            	</div>
-				            </div>
-			            </div>
-					</div>
-					<div class="col-md-6">
-			            <div class="md-form m-0">
-			            	<div class="row">
-				            	<div class="col-md-6">
-							        <select class="mdb-select md-form" id="endmonth" name="ip-endmonth">
-					                    <option value="" disabled selected>Bulan Sampai</option>
-							            <option value="01">01</option>
-							            <option value="02">02</option>
-							            <option value="03">03</option>
-							            <option value="04">04</option>
-							            <option value="05">05</option>
-							            <option value="06">06</option>
-							            <option value="07">07</option>
-							            <option value="08">08</option>
-							            <option value="09">09</option>
-							            <option value="10">10</option>
-							            <option value="11">11</option>
-							            <option value="12">12</option>
-							        </select>
-				            	</div>
-				            	<div class="col-md-6">
-							        <select class="mdb-select md-form" id="endyear" name="ip-endyear">
-					                    <option value="" disabled selected>Tahun Sampai</option>
-							            <option value="2018">2018</option>
-							            <option value="2019">2019</option>
-							            <option value="2020">2020</option>
-							            <option value="2021">2021</option>
-							            <option value="2022">2022</option>
-							            <option value="2023">2023</option>
-							        </select>
-				            	</div>
-				            </div>
-			            </div>
-			        </div>
+				<div class="col-md-2 <?php echo $kasir; ?>">
+				    <div class="md-form">
+				        <select class="mdb-select md-form" id="defaultForm-kasir" name="ip-kasir">
+		                    <option value="" disabled selected>Pilih Kasir</option>
+		                <?php
+		                	$sql="SELECT * from users";
+		                  	$result=mysqli_query($con,$sql);
+		                  	while ($data1=mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+		                      	echo "<option value='$data1[id]'>$data1[name]</option>";
+		                  	}
+		                ?>
+				        </select>
+				    </div>
 				</div>
-			</div>
-			<div class="col-md-2">
-			    <div class="md-form">
-			    	<button class="btn btn-primary <?php echo $btn; ?>">Proses</button>
-			    </div>
-			</div>
-		</div>	
-		<div class="row">
-			<div class="col-md-12">
-				<?php
-				if ($ket=='kasir') {
-				?>
-					<table id="table-kasir" class="table table-striped table-bordered" style="width:100%">
-				        <thead>
-				            <tr>
-	                            <th>tanggal</th>
-	                            <th>kasir</th>
-	                            <th style="text-align: right;">Cash</th>
-	                            <th style="text-align: right;">Debet</th>
-	                            <th style="text-align: right;">online</th>
-	                            <th>total omset</th>
-				            </tr>
-				        </thead>
-				        <tfoot>
-				            <tr>
-	                            <th>tanggal</th>
-	                            <th>kasir</th>
-	                            <th style="text-align: right;">Cash</th>
-	                            <th style="text-align: right;">Debet</th>
-	                            <th style="text-align: right;">online</th>
-	                            <th>total omset</th>
-				            </tr>
-				        </tfoot>
-				    </table>
+				<div class="<?php echo $col; ?>">
+					<div class="row form-date">
+						<div class="col-md-6">
+				            <div class="md-form">
+							  	<input placeholder="Start date" type="text" id="defaultForm-startdate" class="form-control datepicker">
+				            </div>
+						</div>
+						<div class="col-md-6">
+				            <div class="md-form">
+							  	<input placeholder="End date" type="text" id="defaultForm-enddate" class="form-control datepicker">
+				            </div>
+				        </div>
+					</div>
+					<div class="row form-month hidden">
+						<div class="col-md-6">
+				            <div class="md-form m-0">
+				            	<div class="row">
+					            	<div class="col-md-6">
+								        <select class="mdb-select md-form" id="startmonth" name="ip-startmonth">
+						                    <option value="" disabled selected>Bulan Mulai</option>
+								            <option value="01">01</option>
+								            <option value="02">02</option>
+								            <option value="03">03</option>
+								            <option value="04">04</option>
+								            <option value="05">05</option>
+								            <option value="06">06</option>
+								            <option value="07">07</option>
+								            <option value="08">08</option>
+								            <option value="09">09</option>
+								            <option value="10">10</option>
+								            <option value="11">11</option>
+								            <option value="12">12</option>
+								        </select>
+					            	</div>
+					            	<div class="col-md-6">
+								        <select class="mdb-select md-form" id="startyear" name="ip-startyear">
+						                    <option value="" disabled selected>Tahun Mulai</option>
+								            <option value="2018">2018</option>
+								            <option value="2019">2019</option>
+								            <option value="2020">2020</option>
+								            <option value="2021">2021</option>
+								        </select>
+					            	</div>
+					            </div>
+				            </div>
+						</div>
+						<div class="col-md-6">
+				            <div class="md-form m-0">
+				            	<div class="row">
+					            	<div class="col-md-6">
+								        <select class="mdb-select md-form" id="endmonth" name="ip-endmonth">
+						                    <option value="" disabled selected>Bulan Sampai</option>
+								            <option value="01">01</option>
+								            <option value="02">02</option>
+								            <option value="03">03</option>
+								            <option value="04">04</option>
+								            <option value="05">05</option>
+								            <option value="06">06</option>
+								            <option value="07">07</option>
+								            <option value="08">08</option>
+								            <option value="09">09</option>
+								            <option value="10">10</option>
+								            <option value="11">11</option>
+								            <option value="12">12</option>
+								        </select>
+					            	</div>
+					            	<div class="col-md-6">
+								        <select class="mdb-select md-form" id="endyear" name="ip-endyear">
+						                    <option value="" disabled selected>Tahun Sampai</option>
+								            <option value="2018">2018</option>
+								            <option value="2019">2019</option>
+								            <option value="2020">2020</option>
+								            <option value="2021">2021</option>
+								        </select>
+					            	</div>
+					            </div>
+				            </div>
+				        </div>
+					</div>
+				</div>
+				<div class="col-md-2">
+				    <div class="md-form">
+				    	<button class="btn btn-primary <?php echo $btn; ?>">Proses</button>
+				    </div>
+				</div>
+			</div>	
+			<div class="row fadeInLeft slow animated">
+				<div class="col-md-12">
+					<?php
+					if ($ket=='kasir') {
+					?>
+						<table id="table-kasir" class="table table-striped table-bordered" style="width:100%">
+					        <thead>
+					            <tr>
+		                            <th>tanggal</th>
+		                            <th>kasir</th>
+		                            <th style="text-align: right;">Cash</th>
+		                            <th style="text-align: right;">Debet</th>
+		                            <th style="text-align: right;">online</th>
+		                            <th>total omset</th>
+					            </tr>
+					        </thead>
+					        <tfoot>
+					            <tr>
+		                            <th>tanggal</th>
+		                            <th>kasir</th>
+		                            <th style="text-align: right;">Cash</th>
+		                            <th style="text-align: right;">Debet</th>
+		                            <th style="text-align: right;">online</th>
+		                            <th>total omset</th>
+					            </tr>
+					        </tfoot>
+					    </table>
 
 
-				<?php
-				} else {
-				?>
-					<table id="table-omset" class="table table-striped table-bordered" style="width:100%">
-				        <thead>
-				            <tr>
-	                            <th>tanggal</th>
-	                            <th style="text-align: right;">Cash</th>
-	                            <th style="text-align: right;">Debet</th>
-	                            <th style="text-align: right;">online</th>
-	                            <th>total omset</th>
-				            </tr>
-				        </thead>
-				        <tfoot>
-				            <tr>
-	                            <th>tanggal</th>
-	                            <th style="text-align: right;">Cash</th>
-	                            <th style="text-align: right;">Debet</th>
-	                            <th style="text-align: right;">online</th>
-	                            <th>total omset</th>
-				            </tr>
-				        </tfoot>
-				    </table>
-				<?php
-				}
-				?>
+					<?php
+					} else {
+					?>
+						<table id="table-omset" class="table table-striped table-bordered" style="width:100%">
+					        <thead>
+					            <tr>
+		                            <th>tanggal</th>
+		                            <th style="text-align: right;">Cash</th>
+		                            <th style="text-align: right;">Debet</th>
+		                            <th style="text-align: right;">online</th>
+		                            <th>total omset</th>
+					            </tr>
+					        </thead>
+					        <tfoot>
+					            <tr>
+		                            <th>tanggal</th>
+		                            <th style="text-align: right;">Cash</th>
+		                            <th style="text-align: right;">Debet</th>
+		                            <th style="text-align: right;">online</th>
+		                            <th>total omset</th>
+					            </tr>
+					        </tfoot>
+					    </table>
+					<?php
+					}
+					?>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 <?php
-} elseif ($ket=='kasir') {
-
-
 } elseif ($ket=='menu') {
-	echo "Menu";
+	?>
+	<div class="row justify-content-md-center">
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-2">
+				    <div class="md-form">
+				        <select class="mdb-select md-form" id="daterange" name="ip-daterange">
+				            <option value="harian">Harian</option>
+				            <option value="bulanan">Bulanan</option>
+				        </select>
+				    </div>
+				</div>
+				<div class="col-md-2">
+				    <div class="md-form">
+				        <select class="mdb-select md-form" id="defaultForm-menu" name="ip-menu">
+		                    <option value="" disabled selected>Pilih Menu</option>
+		                <?php
+		                	$sql="SELECT * from barang";
+		                  	$result=mysqli_query($con,$sql);
+		                  	while ($data1=mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+		                      	echo "<option value='$data1[barang_id]'>$data1[barang_nama]</option>";
+		                  	}
+		                ?>
+				        </select>
+				    </div>
+				</div>
+				<div class="col-md-6">
+					<div class="row form-date">
+						<div class="col-md-6">
+				            <div class="md-form">
+							  	<input placeholder="Start date" type="text" id="defaultForm-startdate" class="form-control datepicker">
+				            </div>
+						</div>
+						<div class="col-md-6">
+				            <div class="md-form">
+							  	<input placeholder="End date" type="text" id="defaultForm-enddate" class="form-control datepicker">
+				            </div>
+				        </div>
+					</div>
+					<div class="row form-month hidden">
+						<div class="col-md-6">
+				            <div class="md-form m-0">
+				            	<div class="row">
+					            	<div class="col-md-6">
+								        <select class="mdb-select md-form" id="startmonth" name="ip-startmonth">
+						                    <option value="" disabled selected>Bulan Mulai</option>
+								            <option value="01">01</option>
+								            <option value="02">02</option>
+								            <option value="03">03</option>
+								            <option value="04">04</option>
+								            <option value="05">05</option>
+								            <option value="06">06</option>
+								            <option value="07">07</option>
+								            <option value="08">08</option>
+								            <option value="09">09</option>
+								            <option value="10">10</option>
+								            <option value="11">11</option>
+								            <option value="12">12</option>
+								        </select>
+					            	</div>
+					            	<div class="col-md-6">
+								        <select class="mdb-select md-form" id="startyear" name="ip-startyear">
+						                    <option value="" disabled selected>Tahun Mulai</option>
+								            <option value="2018">2018</option>
+								            <option value="2019">2019</option>
+								            <option value="2020">2020</option>
+								            <option value="2021">2021</option>
+								        </select>
+					            	</div>
+					            </div>
+				            </div>
+						</div>
+						<div class="col-md-6">
+				            <div class="md-form m-0">
+				            	<div class="row">
+					            	<div class="col-md-6">
+								        <select class="mdb-select md-form" id="endmonth" name="ip-endmonth">
+						                    <option value="" disabled selected>Bulan Sampai</option>
+								            <option value="01">01</option>
+								            <option value="02">02</option>
+								            <option value="03">03</option>
+								            <option value="04">04</option>
+								            <option value="05">05</option>
+								            <option value="06">06</option>
+								            <option value="07">07</option>
+								            <option value="08">08</option>
+								            <option value="09">09</option>
+								            <option value="10">10</option>
+								            <option value="11">11</option>
+								            <option value="12">12</option>
+								        </select>
+					            	</div>
+					            	<div class="col-md-6">
+								        <select class="mdb-select md-form" id="endyear" name="ip-endyear">
+						                    <option value="" disabled selected>Tahun Sampai</option>
+								            <option value="2018">2018</option>
+								            <option value="2019">2019</option>
+								            <option value="2020">2020</option>
+								            <option value="2021">2021</option>
+								        </select>
+					            	</div>
+					            </div>
+				            </div>
+				        </div>
+					</div>
+				</div>
+				<div class="col-md-2">
+				    <div class="md-form">
+				    	<button class="btn btn-primary btn-proses-laporan-menu">Proses</button>
+				    </div>
+				</div>
+			</div>	
+			<div class="row fadeInLeft slow animated">
+				<div class="col-md-12">
+					<table id="table-menu" class="table table-striped table-bordered" style="width:100%">
+				        <thead>
+				            <tr>
+	                            <th>tanggal</th>
+	                            <th>menu</th>
+	                            <th>jumlah</th>
+				            </tr>
+				        </thead>
+				        <tfoot>
+				            <tr>
+	                            <th>tanggal</th>
+	                            <th>menu</th>
+	                            <th>jumlah</th>
+				            </tr>
+				        </tfoot>
+				    </table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<?php
 
 }
 
@@ -478,7 +606,73 @@ if ($ket=='omset' || $ket=='kasir') {
 		        	console.log(data);
 		        }
 		    });
-		});            
+		});   
+
+		$('.btn-proses-laporan-menu').on('click',function(){
+			var daterange = $('#daterange').val();
+			var menu = $('#defaultForm-menu').val();
+
+			if (daterange=='harian') {
+
+	          	var start = $('#defaultForm-startdate').val();
+	          	var end = $('#defaultForm-enddate').val();
+	          	var kettext = 'transaksi_tanggal';
+				
+			} else if (daterange=='bulanan') {
+
+	          	var start = $("#startyear").val()+"-"+$("#startmonth").val();
+	          	var end = $("#endyear").val()+"-"+$("#endmonth").val();
+	          	var kettext = 'transaksi_bulan';
+				
+			}
+
+			
+			$.ajax({
+		        type:'POST',
+		        url:'api/view.api.php?func=laporan-menu',
+		        dataType: "json",
+            	data:{
+            		daterange:daterange,
+            		start:start,
+            		end:end,
+            		menu:menu
+            	},
+		        success:function(data){
+		        	console.log(menu);
+		        	$('#table-menu').DataTable().clear().destroy();
+		        	if (kettext=='transaksi_bulan') {
+			        	$('#table-menu').DataTable( {
+						    paging: false,
+						    searching: false,
+						    ordering: false,
+						    data: data,
+						    columns: [
+						        { data: 'transaksi_bulan' },
+						        { data: 'barang_nama' },
+						        { data: 'jumlah' }
+						    ]
+						} );
+
+		        	} else if (kettext=='transaksi_tanggal') {
+			        	$('#table-menu').DataTable( {
+						    paging: false,
+						    searching: false,
+						    ordering: false,
+						    data: data,
+						    columns: [
+						        { data: 'transaksi_tanggal' },
+						        { data: 'barang_nama' },
+						        { data: 'jumlah' }
+						    ]
+						} );
+
+		        	} 
+
+		        	console.log("success "+kettext);
+		        	console.log(data);
+		        }
+		    });
+		});         
 	});
 
 /*

@@ -1,5 +1,5 @@
 <?php include '../modals/stok.modal.php'; ?>
-    <table id="table-stok" class="table table-striped table-bordered" style="width:100%">
+    <table id="table-stok" class="table table-striped table-bordered fadeInLeft slow animated" style="width:100%">
         <thead>
             <tr>
                 <th>nama</th>

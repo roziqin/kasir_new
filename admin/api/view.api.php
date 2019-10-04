@@ -45,7 +45,10 @@ if ($func=='dasboard-omset') {
 	$id = $_POST['id'];
 	$query = "SELECT * from barang where barang_id='$id'";
 
-}  elseif ($func=='laporan-omset') {
+} elseif ($func=='list-transaksi-temp') {
+    $user = $_SESSION['login_user'];
+    $query="SELECT * from transaksi_detail_temp, barang, kategori where transaksi_detail_temp_barang_id=barang_id and kategori_id=barang_kategori and transaksi_detail_temp_user='$user' ORDER BY transaksi_detail_temp_id";
+} elseif ($func=='laporan-omset') {
 	
     
     if ($_POST['daterange']=="harian") {
@@ -58,14 +61,6 @@ if ($func=='dasboard-omset') {
 	    $tgl22 = date("Y-m", strtotime($_POST['end']));
     }
 
-    /*
-    $tgl11 = date("Y-m-j", strtotime("2 September, 2019"));
-    $tgl22 = date("Y-m-j", strtotime("10 September, 2019"));
-
-    $ket = "transaksi_tanggal";
-    */
-	$sql = mysqli_query($con, "SELECT transaksi_id FROM transaksi WHERE $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket"); // Query untuk menghitung seluruh data siswa
-	$sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 	$query ="SELECT transaksi_tanggal, transaksi_bulan, sum(transaksi_total) as total, sum(transaksi_diskon) as diskon from transaksi WHERE $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket  ";
 
 }  elseif ($func=='laporan-kasir') {
@@ -91,9 +86,32 @@ if ($func=='dasboard-omset') {
 	    $tgl22 = date("Y-m", strtotime($_POST['end']));
     }
 
-	$sql = mysqli_query($con, "SELECT transaksi_id FROM transaksi, users WHERE transaksi_user=id and $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket");
-	$sql_count = mysqli_num_rows($sql);
 	$query ="SELECT transaksi_tanggal, transaksi_bulan, sum(transaksi_total) as total, sum(transaksi_diskon) as diskon, transaksi_user, id, name from transaksi, users WHERE transaksi_user=id and $text1 $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket $text2 ";
+
+}  elseif ($func=='laporan-menu') {
+	
+    $menu = $_POST['menu'];
+
+    if ($menu==0) {
+        $text1 = '';
+        $text2 = ', barang_id';
+    } else {
+        $text1 = 'barang_id='.$menu.' and ';
+        $text2 = '';
+
+    }
+
+    if ($_POST['daterange']=="harian") {
+        $ket = "transaksi_tanggal"; 
+		$tgl11 = date("Y-m-j", strtotime($_POST['start']));
+	    $tgl22 = date("Y-m-j", strtotime($_POST['end']));
+    } elseif ($_POST['daterange']=="bulanan") {
+        $ket = "transaksi_bulan";     
+		$tgl11 = date("Y-m", strtotime($_POST['start']));
+	    $tgl22 = date("Y-m", strtotime($_POST['end']));
+    }
+
+	$query ="SELECT transaksi_tanggal, transaksi_bulan, barang_nama, barang_id, sum(transaksi_detail_jumlah) as jumlah from transaksi, transaksi_detail, barang WHERE transaksi_id=transaksi_detail_nota and transaksi_detail_barang_id=barang_id and $text1 $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket $text2 ORDER BY jumlah DESC";
 }
 
 

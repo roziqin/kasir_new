@@ -9,7 +9,7 @@
 	<main class="pt-4 dashboard pl-3 pr-3 mr-0">
 		<div class="main-wrapper">
 		    <div class="container-fluid">
-				<div class="row mt-2">
+				<div class="row mt-2 fadeIn animated">
 
 					<!--Grid column-->
 					<div class="col-md-7">
