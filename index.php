@@ -1,5 +1,11 @@
 <?php
 include 'config/database.php';
+session_start();
+
+if(isset($_SESSION['login'])){
+    header('location: admin?menu=');
+}
+else{
 
 ?>
 <!DOCTYPE html>
@@ -87,3 +93,7 @@ include 'config/database.php';
     </script>
 </body>
 </html>
+
+<?php
+}
+?>

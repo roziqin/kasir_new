@@ -44,7 +44,51 @@
               <input type="text" id="defaultForm-service" class="form-control validate mb-3" name="ip-service">
               <label for="defaultForm-service">Pajak Service %</label>
             </div>
-
+            <div class="md-form mb-0">
+                <select class="mdb-select md-form" id="pajakpembulatan" name="ip-pajak-pembulatan">
+                    <option value="" disabled selected>Set Pembulatan Pajak</option>
+                    <option value="0">Tidak</option>
+                    <option value="1">Ya</option>
+                </select>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="md-form mb-0">
+                    <select class="mdb-select md-form" id="printchecklist" name="ip-print-checklist">
+                        <option value="" disabled selected>Print Checklist</option>
+                        <option value="0">Tidak</option>
+                        <option value="1">Ya</option>
+                    </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="md-form mb-0">
+                    <select class="mdb-select md-form" id="printkitchen" name="ip-print-kitchen">
+                        <option value="" disabled selected>Print Kitchen</option>
+                        <option value="0">Tidak</option>
+                        <option value="1">Ya</option>
+                    </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="md-form mb-0">
+                    <select class="mdb-select md-form" id="printsnack" name="ip-print-snack">
+                        <option value="" disabled selected>Print Snack</option>
+                        <option value="0">Tidak</option>
+                        <option value="1">Ya</option>
+                    </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="md-form mb-0">
+                    <select class="mdb-select md-form" id="printbar" name="ip-print-bar">
+                        <option value="" disabled selected>Print Bar</option>
+                        <option value="0">Tidak</option>
+                        <option value="1">Ya</option>
+                    </select>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-md-4">
             <img src="" class="img-fluid img-logo" alt="Responsive image">
@@ -73,6 +117,11 @@
               $("#defaultForm-service").val(data[0].pengaturan_service);
               $("#pajak10").val(data[0].pengaturan_pajak);
               $("#pajakonline").val(data[0].pengaturan_pajak_online);
+              $("#pajakpembulatan").val(data[0].pengaturan_pajak_pembulatan);
+              $("#printchecklist").val(data[0].pengaturan_print_checklist);
+              $("#printkitchen").val(data[0].pengaturan_print_kitchen);
+              $("#printsnack").val(data[0].pengaturan_print_snack);
+              $("#printbar").val(data[0].pengaturan_print_bar);
 
           }
       });
@@ -88,6 +137,11 @@
         data.append('ip-textlogo', $("#textlogo").val());
         data.append('ip-pajak', $("#pajak10").val());
         data.append('ip-pajakonline', $("#pajakonline").val());
+        data.append('ip-pajak-pembulatan', $("#pajakpembulatan").val());
+        data.append('ip-print-checklist', $("#printchecklist").val());
+        data.append('ip-print-kitchen', $("#printkitchen").val());
+        data.append('ip-print-snack', $("#printsnack").val());
+        data.append('ip-print-bar', $("#printbar").val());
         data.append('inputfile', $("#logo")[0].files[0]);
         console.log(data);
      

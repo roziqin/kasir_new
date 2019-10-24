@@ -36,17 +36,25 @@
             "columns": [
                 { "data": "barang_nama" },
                 { "data": "barang_stok" },
-                { "data": "barang_set_stok" },
-
                 { "width": "150px", "render": function(data, type, full){
 
-                  if (full['barang_set_stok']==0) {
-                   return '<a class="btn-floating btn-sm btn-primary mr-2 btn-tambah disabled" title="Tambah" ><i class="fas fa-plus"></i></a> <a class="btn-floating btn-sm btn-default mr-2 btn-edit disabled" title="Kurang" ><i class="fas fa-minus"></i></a>';
+                    if (full['barang_set_stok']==1) {
+                     return 'Ya';
 
-                  } else {
-                   return '<a class="btn-floating btn-sm btn-primary mr-2 btn-tambah" data-toggle="modal" data-target="#modalstok" data-id="' + full['barang_id'] + '" title="Tambah"><i class="fas fa-plus"></i></a><a class="btn-floating btn-sm btn-default mr-2 btn-edit" data-toggle="modal" data-target="#modalstok" data-id="' + full['barang_id'] + '" title="Kurang"><i class="fas fa-minus"></i></a>';
+                    } else {
+                     return 'Tidak';
+                    }
                   }
-                }
+                },
+                { "width": "150px", "render": function(data, type, full){
+
+                    if (full['barang_set_stok']==0) {
+                     return '<a class="btn-floating btn-sm btn-primary mr-2 btn-tambah disabled" title="Tambah" ><i class="fas fa-plus"></i></a> <a class="btn-floating btn-sm btn-default mr-2 btn-edit disabled" title="Kurang" ><i class="fas fa-minus"></i></a>';
+
+                    } else {
+                     return '<a class="btn-floating btn-sm btn-primary mr-2 btn-tambah" data-toggle="modal" data-target="#modalstok" data-id="' + full['barang_id'] + '" title="Tambah"><i class="fas fa-plus"></i></a><a class="btn-floating btn-sm btn-default mr-2 btn-edit" data-toggle="modal" data-target="#modalstok" data-id="' + full['barang_id'] + '" title="Kurang"><i class="fas fa-minus"></i></a>';
+                    }
+                  }
                 },
             ],
             /*

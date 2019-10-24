@@ -7,9 +7,11 @@
                 <th>nama</th>
                 <th>kategori</th>
                 <th>stok</th>
+                <th>batas stok</th>
                 <th>harga beli</th>
                 <th>harga jual</th>
                 <th>harga online</th>
+                <th>disable</th>
                 <th>foto produk</th>
                 <th></th>
             </tr>
@@ -19,9 +21,11 @@
                 <th>nama</th>
                 <th>kategori</th>
                 <th>stok</th>
+                <th>batas stok</th>
                 <th>harga beli</th>
                 <th>harga jual</th>
                 <th>harga online</th>
+                <th>disable</th>
                 <th>foto produk</th>
                 <th></th>
             </tr>
@@ -67,10 +71,29 @@
                 { "data": "barang_nama" },
                 { "data": "kategori_nama" },
                 { "data": "barang_stok" },
+                { "width": "150px", "render": function(data, type, full){
+
+                    if (full['barang_batas_stok']==1) {
+                     return 'Ya';
+
+                    } else {
+                     return 'Tidak';
+                    }
+                  }
+                },
                 { "data": "barang_harga_beli" },
                 { "data": "barang_harga_jual" },
                 { "data": "barang_harga_jual_online" },
+                { "width": "150px", "render": function(data, type, full){
 
+                    if (full['barang_disable']==1) {
+                     return 'Ya';
+
+                    } else {
+                     return 'Tidak';
+                    }
+                  }
+                },
                 { "width": "110px", "render": function(data, type, full){
                    return '<img width="50" src="../assets/img/produk/' + full['barang_image'] + '" >';
                   }

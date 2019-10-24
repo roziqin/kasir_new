@@ -8,8 +8,10 @@
 <script type="text/javascript" src="../assets/js/ajax.js?aa"></script>
 <script type="text/javascript" src="../assets/js/addons/datatables.min.js"></script>
 <script type="text/javascript" src="../assets/js/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.price_format.2.0.js"></script>
 
-<script type="text/javascript">
+
+<script type="text/javascript"> 
   /* Fungsi formatRupiah */
   function formatRupiah(angka, prefix){
     var number_string = angka.replace(/[^,\d]/g, '').toString(),

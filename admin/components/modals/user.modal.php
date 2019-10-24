@@ -69,6 +69,7 @@
         </button>
       </div>
       <form method="post" class="form-permission-user">
+        
         <div class="modal-body mx-3">
             <input type="hidden" id="defaultForm-id" name="ip-id">
             <div class="md-form mb-0">
