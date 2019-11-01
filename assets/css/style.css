@@ -230,6 +230,14 @@ main.transaksi {
 	color: #212529;
 }
 
+.transaksi .box-hidden {
+	background-color: rgba(0,0,0,.6);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+}
+
 .transaksi .search-result {
 	display: -ms-flexbox;
     display: flex;
@@ -388,6 +396,10 @@ main.transaksi {
 	font-size: 1.5rem;
 }
 
+.transaksi .box-right .box-bottom .btn i {
+	display: inline-block;
+}
+
 .transaksi .box-right .btn.ordertype i {
 	margin-right: 10px;
 	display: inline-block;
@@ -422,7 +434,7 @@ main.transaksi {
 	padding: .9rem 1.14rem;
 	margin: .375rem .15rem;
 	width: calc(100% - 10px);
-	font-size: .6rem;
+	font-size: .9rem;
 }
 
 

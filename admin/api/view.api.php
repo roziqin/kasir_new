@@ -129,12 +129,17 @@ if ($func=="laporan-omset" || $func=="laporan-kasir") {
 	while($data = mysqli_fetch_assoc($result))
 	{
 		if ($func=="laporan-kasir") {
-	        $text = 'transaksi_user='.$data['id'].' and ';
-            $text1 = '';
+            if ($data['id']==0) {
+                $text = '';
+                $text1 = ', transaksi_user';
+            } else {
+    	        $text = 'transaksi_user='.$data['id'].' and ';
+                $text1 = '';
+            }
 	    } else {
-	    	$text = '';
-            $text1 = ', transaksi_user';
-	    }
+            $text = '';
+            $text1 = '';
+        }
 
 		$tglket = $data[$ket];
         $sqlcash="SELECT sum(transaksi_total) as total from transaksi WHERE $text $ket='$tglket' and transaksi_type_bayar='Cash' GROUP BY $ket $text1 ";

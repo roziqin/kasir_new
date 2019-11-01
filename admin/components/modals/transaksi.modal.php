@@ -16,6 +16,7 @@
           <button type="button" class="btn btn-white waves-effect text-info paytype" data-id="goresto" id="goresto"><i class="fab fa-google-wallet"></i>GoResto</button>
         </div>
         <input type="hidden" id="defaultForm-paytype" name="ip-paytype" value="cash">
+        <input type="hidden" id="defaultForm-totalmodal" name="ip-total">
         <div class="md-form mb-0">
           <input type="text" id="defaultForm-nama" class="form-control validate mb-3" name="ip-nama">
           <label for="defaultForm-nama">Nama Pelanggan</label>
@@ -41,7 +42,7 @@
         
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-primary" id="submit-transaksi" aria-label="Close">Proses</button>
+        <button class="btn btn-primary" id="submit-transaksi" data-dismiss="modal" aria-label="Close">Proses</button>
       </div>
     </div>
   </div>
@@ -70,6 +71,8 @@
         data.append('ip-jenisdiskon', $("#defaultForm-jenisdiskon").val());
         data.append('ip-jumlahdiskon', $("#defaultForm-jumlahdiskon").val());
         data.append('ip-tax', $("#defaultForm-tax").val());
+        data.append('ip-servicetax', $("#defaultForm-servicetax").val());
+
         var total = parseInt($("#defaultForm-total").val());
         var bayar = '';
         var text_line = $("#price").val().split(".");
@@ -110,7 +113,24 @@
             contentType: false,
             success: function(data) {
               console.log(data)
-              $('.container__load').load('components/content/transaksi.content.php?kond=home');
+              $('.container__load').load('components/content/transaksi.content.php?kond=kembalian');
+              $('#listitem table').empty();
+              $('#subtotal').empty();
+              $('#subtotal').append('Rp. 0');
+              $('#pajak').empty();
+              $('#pajak').append('Rp. 0');
+              $('#total').empty();
+              $('#total').append('Rp. 0');
+              $('.text-jenisdiskon').empty();
+              $('.text-jumlahdiskon').empty();
+              $('#bayar').attr("disabled","true");
+              $('.ordertype').removeAttr("disabled");
+              $('.paytype').removeAttr("disabled");
+              $('#defaultForm-ordertype').val('');
+              $('#defaultForm-nama').val('');
+              $('#defaultForm-meja').val('');
+              $('#defaultForm-lantai').val('');
+              $('#price').val('');
             }
           });
           

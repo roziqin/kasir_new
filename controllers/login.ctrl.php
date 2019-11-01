@@ -36,7 +36,7 @@
 			$_SESSION['namauser']     = $data['username'];
 			$_SESSION['passuser']     = $data['password'];
 			$_SESSION['role']		  = $data['roles_name'];
-			$_SESSION['order_type']		  = 'null';
+			$_SESSION['order_type']		  = '';
 			echo 'ok';
 		} else {
 			echo 'Username atau Password Salah !';

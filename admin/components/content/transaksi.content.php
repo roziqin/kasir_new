@@ -6,6 +6,17 @@ include '../../../include/format_rupiah.php';
 $kond = $_GET['kond'];
 
 if ($kond=='home' || $kond=='') { ?>
+    <?php if ($_SESSION['order_type']=='') { ?>
+        <div class="box-hidden">
+            
+            <div class="row row-jumlah justify-content-md-center">
+                <div class="col-md-12 text-center" style="margin-top: 45vh;">
+                    <button type="button" class="btn btn-default waves-effect mr-2" id="ceknota"><i class="fas fa-clipboard-check mr-2"></i>Cek Nota</button>
+                    <button type="button" class="btn btn-default waves-effect mr-2" id="tutupkasir"><i class="fas fa-cash-register mr-2"></i>Tutup Kasir</button>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
 	<div class="classic-tabs">
 		<ul class="nav tabs-white border-bottom" id="myClassicTab" role="tablist">
 			<?php
@@ -243,7 +254,9 @@ if ($kond=='home' || $kond=='') { ?>
         ?>
 	    </div>
     </div>
+
 <?php }  elseif ($kond=='jumlah') { ?>
+
     <div class="row p-3 row-jumlah justify-content-md-center">
     	<div class="col-md-6 mt-5">
     		<h3 class="text-center mb-5">Input Jumlah</h3>
@@ -261,6 +274,134 @@ if ($kond=='home' || $kond=='') { ?>
 	    	</form>
 	    </div>
     </div>
+
+<?php } elseif ($kond=='kembalian') { ?>
+
+    <input type="hidden" id="ketnota" value="<?php echo $_SESSION['no-nota']; ?>" name="ketnota">   
+    <div class="row p-3 row-jumlah justify-content-md-center">
+        <div class="col-md-6 mt-5">
+            <h3 class="text-center mb-5">Jumlah Kembalian</h3>
+            <h1 class="text-center mt-5 mb-3" id="jumlahkembalian">Rp. <?php echo format_rupiah($_SESSION['kembalian']); ?></h1>
+            <button class="btn btn-primary transaksibaru float-right">Transaksi Baru</button>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        var nota = $("#ketnota").val();
+        windowList = new Array('print/nota.print.php?id='+nota);
+        i = 0;
+        windowName = "window";
+        windowInterval = window.setInterval(function(){
+            window.open(windowList[i],windowName+i,'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,titlebar=no');
+            i++;
+            if(i==windowList.length){
+                window.clearInterval(windowInterval);
+            }
+        },1000);
+    </script>
+
+   
+<?php } elseif ($kond=='ceknota') { ?>
+
+    <div class="row p-3 row-jumlah justify-content-md-center">
+        <div class="col-md-6 mt-5">
+            <h3 class="text-center mb-5">Cek Nota</h3>
+            <form method="post" class="form-jumlah"> 
+                <div class="md-form mb-3">
+                    <input type="text" id="idnonota" class="form-control" name="idnonota" >
+                    <label for="idnonota">No Nota</label>
+                </div>
+                <button class="btn btn-primary prosesceknota float-right">Proses</button>
+                <button class="btn btn-danger kembali float-right">Kembali</button>
+            </form>
+        </div>
+        <div class="clear"></div>
+        <?php if ($_GET['nonota']!='') { 
+            $nota = $_GET['nonota'];
+            $sqlnot="SELECT * FROM transaksi where transaksi_nota='$nota' ";
+            $querynot=mysqli_query($con,$sqlnot);
+            $datanot=mysqli_fetch_assoc($querynot);
+            $total = $datanot['transaksi_total'];
+        ?>
+        <div class="col-md-12 p-5">
+
+            <input type="hidden" id="ip-nota" class="form-control" name="ip-nota" value="<?php echo $nota; ?>" >
+            <h3>Cek Nota Transaksi : <?php echo $nota; ?></h3>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-0">
+                    <h4>Nama : <?php echo $datanot['transaksi_pelanggan'];?></h4>
+                </div>
+                <table id="listbarang" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>Nama Menu</th>
+                      <th class="text-right">Harga</th>
+                      <th width="50px" style="padding-right: 8px; ">Jumlah</th>
+                      <th class="text-right">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $sqlte1="SELECT * from transaksi_detail, barang where transaksi_detail_barang_id=barang_id and transaksi_detail_nota='$nota' ORDER BY transaksi_detail_id ASC";
+                        $queryte1 = mysqli_query($con,$sqlte1);
+                        while($datatea = mysqli_fetch_assoc($queryte1)) {
+                            $jumlah = $datatea["transaksi_detail_jumlah"];
+                            $harga = $datatea["barang_harga_jual"];
+                        ?>
+                            <tr>
+                                <td><?php echo $datatea["barang_nama"]; ?></td>
+                                <td class="text-right">Rp. <?php echo format_rupiah($harga); ?></td>
+                                <td><?php echo $jumlah; ?></td>
+                                <td class="text-right">Rp. <?php echo format_rupiah($jumlah*$harga); ?></td>
+                                
+                            </tr>
+                        <?php
+                        }
+                    ?>
+                    </tbody>
+                </table>
+                <div class="col-6 col-md-offset-0">
+                    <h4>Total : </h4>
+                </div>
+                <div class="col-md-6 col-md-offset-0 text-right">
+                    <h4>Rp. <?php echo format_rupiah($total); ?></h4>
+                </div>              
+            </div>
+            <button class="btn btn-warning printulang float-right mr-0" id="btn-printulang"><i class="fas fa-print mr-2"></i>Print Ulang</button>
+        </div>
+        <?php } ?>
+    </div>
+
+<?php }  elseif ($kond=='tutupkasir') { ?>
+
+    <div class="row-jumlah">
+        <div class="row p-3 justify-content-md-center">
+            <div class="col-md-6 mt-5">
+                <h3 class="text-center mb-5">Tutup Kasir</h3>
+                <form method="post" class="form-omset"> 
+                    <div class="md-form mb-3">
+                        <input type="text" id="uangfisik" class="form-control" name="uangfisik" >
+                        <label for="uangfisik">Masukkan Jumlah Uang Fisik</label>
+                    </div>
+                    <button class="btn btn-primary prosestutupkasir float-right">Proses</button>
+                    <button class="btn btn-danger kembali float-right">Kembali</button>
+                </form>
+            </div>
+        </div>
+        <div class="row p-3 justify-content-md-center">
+            <div class="col-md-6 p-5">
+
+                <h3 id="spuangfisik"></h3>
+                <h3 id="spcash"></h3>
+                <h3 id="spdebet"></h3>
+                <h3 id="spgoresto"></h3>
+                <h3 id="spomset"></h3>
+                <h3 id="spselisih"></h3>
+                
+                    
+            </div>
+        </div>
+    </div>
 <?php } ?>
 
 
@@ -273,6 +414,14 @@ if ($kond=='home' || $kond=='') { ?>
 		var barang_id = $(this).data('id');
 		$('.container__load').load('components/content/transaksi.content.php?kond=jumlah&id='+barang_id);
 	});
+
+    $('#ceknota').on('click',function(){
+        $('.container__load').load('components/content/transaksi.content.php?kond=ceknota&nonota=');
+    });
+
+    $('#tutupkasir').on('click',function(){
+        $('.container__load').load('components/content/transaksi.content.php?kond=tutupkasir&omset=');
+    });
 
 	$('.btn-clear-search').on('click',function(){
 		$('#carimenu').val('');
@@ -381,6 +530,114 @@ if ($kond=='home' || $kond=='') { ?>
 
 
 </script>
+
+<?php } elseif ($kond=='kembalian') { ?>
+    <script type="text/javascript">
+        $('.transaksibaru').on('click',function(){
+            window.location.reload();
+            $('.container__load').load('components/content/transaksi.content.php?kond=home');
+        });
+    </script>
+
+<?php } elseif ($kond=='ceknota' || $kond=='tutupkasir') { ?>
+
+    <script type="text/javascript">
+
+        $('.kembali').on('click',function(e){
+            e.preventDefault();
+            var idnonota = $('#idnonota').val();
+            $('.container__load').load('components/content/transaksi.content.php?kond=home');
+        });
+
+        $('.prosesceknota').on('click',function(e){
+            e.preventDefault();
+            var idnonota = $('#idnonota').val();
+            $('.container__load').load('components/content/transaksi.content.php?kond=ceknota&nonota='+idnonota);
+        });
+
+        $('.prosestutupkasir').on('click',function(e){
+            e.preventDefault();
+            var data = $('.form-omset').serialize();
+            console.log("data "+data)
+            $.ajax({
+                type:'POST',
+                url: "controllers/transaksi.ctrl.php?ket=tutupkasir",
+                dataType: "json",
+                data:data,
+                success:function(data){
+                    console.log("data "+data.ket);
+                    if (data.ket == "gagal") {
+                        $.confirm({
+                              title: 'Validasi Gagal',
+                              content: 'Validasi max 1x',
+                              buttons: {
+                                  confirm: {
+                                      text: 'Close',
+                                      btnClass: 'col-md-12 btn btn-primary',
+                                      action: function(){
+                                          
+                                          
+                                      }
+                                  }
+                              }
+                        });
+                    } else {
+
+
+                        $('#spuangfisik').empty();
+                        $('#spuangfisik').append("Uang Fisik : <span class='float-right'>"+formatRupiah(data.uangfisik.toString(), 'Rp. ')+"</span>");
+                        $('#spcash').empty();
+                        $('#spcash').append("Omset Cash : <span class='float-right'>"+formatRupiah(data.cash.toString(), 'Rp. ')+"</span>");
+                        $('#spdebet').empty();
+                        $('#spdebet').append("Omset Debet : <span class='float-right'>"+formatRupiah(data.debet.toString(), 'Rp. ')+"</span>");
+                        $('#spgoresto').empty();
+                        $('#spgoresto').append("Omset GoResto : <span class='float-right'>"+formatRupiah(data.goresto.toString(), 'Rp. ')+"</span>");
+                        $('#spomset').empty();
+                        $('#spomset').append("Total Omset : <span class='float-right'>"+formatRupiah(data.omset.toString(), 'Rp. ')+"</span>");
+                        $('#spselisih').empty();
+                        var selisih = data.uangfisik - data.cash;
+                        if (selisih < 0) {
+                            $('#spselisih').append("Selisih : <span class='float-right text-danger'>"+formatRupiah(selisih.toString(), 'Rp. ')+"</span>");
+                        } else {
+                            $('#spselisih').append("Selisih : <span class='float-right'>"+formatRupiah(selisih.toString(), 'Rp. ')+"</span>");
+                        }
+
+                            windowList = new Array('print/omset.print.php');
+                            i = 0;
+                            windowName = "window";
+                            windowInterval = window.setInterval(function(){
+                                window.open(windowList[i],windowName+i,'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,titlebar=no');
+                                i++;
+                                if(i==windowList.length){
+                                    window.clearInterval(windowInterval);
+                                }
+                            },1000);
+
+                    }
+
+                }
+            });
+
+        });
+
+        $('#btn-printulang').on('click',function(e){
+            var idnonota = $('#ip-nota').val();
+            e.preventDefault();
+            
+            windowList = new Array('print/nota.print.php?id='+idnonota);
+            i = 0;
+            windowName = "window";
+            windowInterval = window.setInterval(function(){
+              window.open(windowList[i],windowName+i,'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,titlebar=no');
+              i++;
+              if(i==windowList.length){
+                window.clearInterval(windowInterval);
+              }
+            },1000);
+        });
+
+                                    
+    </script>
 
 <?php } elseif ($kond=='jumlah' ) { ?>
 

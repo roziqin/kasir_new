@@ -24,9 +24,9 @@ if ($_GET['ket']=='produk') {
 	
 } elseif ($_GET['ket']=='stok') {
 
-	$sql = mysqli_query($con, "SELECT barang_id FROM barang"); // Query untuk menghitung seluruh data siswa
+	$sql = mysqli_query($con, "SELECT barang_id FROM barang WHERE barang_set_stok=1"); // Query untuk menghitung seluruh data siswa
 	$sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
-	$query = "SELECT * FROM barang where (barang_nama LIKE '%".$search."%')";
+	$query = "SELECT * FROM barang where barang_set_stok=1 and (barang_nama LIKE '%".$search."%')";
 	
 }
 
