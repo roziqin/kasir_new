@@ -33,6 +33,11 @@ else{
 	$pajakonline = $d['pengaturan_pajak_online'];
 	$pajakpembulatan = $d['pengaturan_pajak_pembulatan'];
 
+	$printchecklist = $d['pengaturan_print_checklist'];
+	$printkitchen = $d['pengaturan_print_kitchen'];
+	$printbar = $d['pengaturan_print_bar'];
+	$printsnack = $d['pengaturan_print_snack'];
+
 
 ?>
 <!DOCTYPE html>
@@ -41,7 +46,11 @@ else{
 	<?php include 'partials/head.php'; ?>
 </head>
 <body  class="fixed-sn mdb-skin-custom nav-slim">
-
+	
+	<input type="hidden" id="print-checklist" value="<?php echo $printchecklist; ?>" name="printchecklist">
+	<input type="hidden" id="print-kitchen" value="<?php echo $printkitchen; ?>" name="printkitchen">
+	<input type="hidden" id="print-bar" value="<?php echo $printbar; ?>" name="printbar">
+	<input type="hidden" id="print-snack" value="<?php echo $printsnack; ?>" name="printsnack">
 	<input type="hidden" id="ip-pajakresto" value="<?php echo $pajakresto; ?>" name="pajakresto"> 
 	<input type="hidden" id="ip-pajakservice" value="<?php echo $pajakservice; ?>" name="pajakservice">
 	<input type="hidden" id="ip-pajakonline" value="<?php echo $pajakonline; ?>" name="pajakonline">

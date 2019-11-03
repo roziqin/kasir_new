@@ -241,10 +241,25 @@ if($_GET['ket']=='tambahmenu'){
 		
     }
 
+	$sqlc1=mysqli_query($con, "SELECT COUNT(*) as snack from transaksi_detail_temp, barang, kategori where transaksi_detail_temp_barang_id=barang_id and barang_kategori=kategori_id and kategori_jenis='Snack' and transaksi_detail_temp_user='$user'");
+    $datac1=mysqli_fetch_assoc($sqlc1);
+    $snack=$datac1['snack'];
+
+    $sqlc2=mysqli_query($con, "SELECT COUNT(*) as makanan from transaksi_detail_temp, barang, kategori where transaksi_detail_temp_barang_id=barang_id and barang_kategori=kategori_id and kategori_jenis='Makanan' and transaksi_detail_temp_user='$user'");
+    $datac2=mysqli_fetch_assoc($sqlc2);
+    $makanan=$datac2['makanan'];
+
+    $sqlc3=mysqli_query($con, "SELECT COUNT(*) as minuman from transaksi_detail_temp, barang, kategori where transaksi_detail_temp_barang_id=barang_id and barang_kategori=kategori_id and kategori_jenis='Minuman' and transaksi_detail_temp_user='$user'");
+    $datac3=mysqli_fetch_assoc($sqlc3);
+    $minuman=$datac3['minuman'];
+
 
 
     $_SESSION['kembalian'] = $kembalian;
     $_SESSION['print'] = 'ya';
+    $_SESSION['printmakanan'] = $makanan;
+    $_SESSION['printminuman'] = $minuman;
+    $_SESSION['printsnack'] = $snack;
     $_SESSION['order']='';
     $_SESSION['order_type'] = "";
 

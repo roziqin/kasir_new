@@ -8,7 +8,6 @@ $kond = $_GET['kond'];
 if ($kond=='home' || $kond=='') { ?>
     <?php if ($_SESSION['order_type']=='') { ?>
         <div class="box-hidden">
-            
             <div class="row row-jumlah justify-content-md-center">
                 <div class="col-md-12 text-center" style="margin-top: 45vh;">
                     <button type="button" class="btn btn-default waves-effect mr-2" id="ceknota"><i class="fas fa-clipboard-check mr-2"></i>Cek Nota</button>
@@ -277,7 +276,11 @@ if ($kond=='home' || $kond=='') { ?>
 
 <?php } elseif ($kond=='kembalian') { ?>
 
-    <input type="hidden" id="ketnota" value="<?php echo $_SESSION['no-nota']; ?>" name="ketnota">   
+    <input type="hidden" id="cekordertype" value="<?php echo $_SESSION['order_type']; ?>" name="cekordertype">
+    <input type="hidden" id="ketnota" value="<?php echo $_SESSION['no-nota']; ?>" name="ketnota">
+    <input type="hidden" id="cekprintmakanan" value="<?php echo $_SESSION['printmakanan']; ?>" name="printmakanan">
+    <input type="hidden" id="cekprintminuman" value="<?php echo $_SESSION['printminuman']; ?>" name="printminuman">
+    <input type="hidden" id="cekprintsnack" value="<?php echo $_SESSION['printsnack']; ?>" name="printsnack">   
     <div class="row p-3 row-jumlah justify-content-md-center">
         <div class="col-md-6 mt-5">
             <h3 class="text-center mb-5">Jumlah Kembalian</h3>
@@ -288,7 +291,67 @@ if ($kond=='home' || $kond=='') { ?>
     
     <script type="text/javascript">
         var nota = $("#ketnota").val();
-        windowList = new Array('print/nota.print.php?id='+nota);
+        var printnota = 'print/nota.print.php?id='+nota;
+        
+
+        if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()!=0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()==0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()==0)) {
+
+            if ($("#cekordertype").val()!='online') {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota);
+            } else {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota);
+            }
+        
+        } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()==0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()!=0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()==0)) {
+
+            if ($("#cekordertype").val()!='online') {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=snack&id='+nota);
+            } else {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=snack&id='+nota);
+            }
+        
+        } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()==0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()==0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()!=0)) {
+
+            if ($("#cekordertype").val()!='online') {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=minuman&id='+nota);
+            } else {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=minuman&id='+nota);
+            }
+        
+        } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()!=0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()!=0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()==0)) {
+
+            if ($("#cekordertype").val()!='online') {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=snack&id='+nota);
+            } else {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=snack&id='+nota);
+            }
+        
+        } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()!=0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()==0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()!=0)) {
+
+            if ($("#cekordertype").val()!='online') {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+            } else {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+            }
+        
+        } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()==0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()!=0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()!=0)) {
+
+            if ($("#cekordertype").val()!='online') {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+            } else {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+            }
+        
+        } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()!=0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()!=0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()!=0)) {
+
+            if ($("#cekordertype").val()!='online') {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+            } else {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+            }
+        
+        }
+
         i = 0;
         windowName = "window";
         windowInterval = window.setInterval(function(){

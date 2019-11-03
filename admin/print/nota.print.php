@@ -9,13 +9,6 @@ session_start();
 $tgl=date('Y-m-j');
 $wkt=date('G:i:s');
 
-/*
-  $qn= "SELECT MAX( log_id ) AS id FROM log_user where user='$id'";
-  $rn=mysqli_query($con, $qn);
-  $dn=mysqli_fetch_assoc($rn);
-*/
-
-
 $aid = $_SESSION['login_user'];
 $aa = "SELECT * from users where id='$aid'";
 $bb=mysqli_query($con,$aa);
@@ -75,7 +68,7 @@ $t = $_GET['id'];
       <div class="wrapper">
         <img src="../../assets/img/<?php echo $datapengaturan['pengaturan_logo']; ?>" width="120" style="margin: 0 auto 10px;
           display: block;">
-        <table  width="100%" border="0"  style='font-size: 16px;'>
+        <table  width="100%" border="0">
           <tr>
             <th colspan="4"><?php echo $datapengaturan['pengaturan_alamat']; ?></th>
           </tr>
@@ -101,7 +94,7 @@ $t = $_GET['id'];
             <td colspan="4"><hr></td>
           </tr>
         </table>
-        <table width="100%" border="0"  style='font-size: 16px;'>
+        <table width="100%" border="0">
           <tr>
             <td>Menu</td>
             <td width="24" align="center">Jml.</td>
