@@ -261,7 +261,7 @@ if($_GET['ket']=='tambahmenu'){
     $_SESSION['printminuman'] = $minuman;
     $_SESSION['printsnack'] = $snack;
     $_SESSION['order']='';
-    $_SESSION['order_type'] = "";
+    $_SESSION['order_type'] = $ordertype;
 
     $sqldelete = "DELETE from transaksi_detail_temp where transaksi_detail_temp_user='$user'";
     mysqli_query($con,$sqldelete);
@@ -325,7 +325,7 @@ if($_GET['ket']=='tambahmenu'){
 			$totgoresto = $data4['goresto'];
 		}
 
-		$a="INSERT into validasi(validasi_tanggal,validasi_waktu,validasi_user_id,validasi_user_nama,validasi_jumlah,validasi_omset)values('$tgl','$wkt','$user','$usernama','$uangfisik','$data1[total]')";
+		$a="INSERT into validasi(validasi_tanggal,validasi_waktu,validasi_user_id,validasi_user_nama,validasi_jumlah,validasi_cash,validasi_debet,validasi_online,validasi_omset)values('$tgl','$wkt','$user','$usernama','$uangfisik','$totcash','$totdebet','$totgoresto','$data1[total]')";
 			mysqli_query($con,$a);
 
 

@@ -81,9 +81,18 @@
                     }
                   }
                 },
-                { "data": "barang_harga_beli" },
-                { "data": "barang_harga_jual" },
-                { "data": "barang_harga_jual_online" },
+                { "render": function(data, type, full){
+                   return formatRupiah(full['barang_harga_beli'].toString(), 'Rp. ');
+                  }
+                },
+                { "render": function(data, type, full){
+                   return formatRupiah(full['barang_harga_jual'].toString(), 'Rp. ');
+                  }
+                },
+                { "render": function(data, type, full){
+                   return formatRupiah(full['barang_harga_jual_online'].toString(), 'Rp. ');
+                  }
+                },
                 { "width": "150px", "render": function(data, type, full){
 
                     if (full['barang_disable']==1) {

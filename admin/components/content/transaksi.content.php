@@ -297,59 +297,67 @@ if ($kond=='home' || $kond=='') { ?>
         if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()!=0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()==0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()==0)) {
 
             if ($("#cekordertype").val()!='online') {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=makanan&id='+nota);
             } else {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=makanan&id='+nota);
             }
         
         } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()==0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()!=0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()==0)) {
 
             if ($("#cekordertype").val()!='online') {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=snack&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=snack&id='+nota);
             } else {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=snack&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=snack&id='+nota);
             }
         
         } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()==0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()==0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()!=0)) {
 
             if ($("#cekordertype").val()!='online') {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=minuman&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=minuman&id='+nota);
             } else {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=minuman&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=minuman&id='+nota);
             }
         
         } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()!=0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()!=0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()==0)) {
 
             if ($("#cekordertype").val()!='online') {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=snack&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=snack&id='+nota);
             } else {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=snack&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=snack&id='+nota);
             }
         
         } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()!=0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()==0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()!=0)) {
 
             if ($("#cekordertype").val()!='online') {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
             } else {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=makanan&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
             }
         
         } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()==0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()!=0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()!=0)) {
 
             if ($("#cekordertype").val()!='online') {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
             } else {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
             }
         
         } else if (($("#print-kitchen").val()==1 && $("#cekprintmakanan").val()!=0) && ($("#print-snack").val()==1 && $("#cekprintsnack").val()!=0) && ($("#print-bar").val()==1 && $("#cekprintminuman").val()!=0)) {
 
             if ($("#cekordertype").val()!='online') {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=makanan&id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
             } else {
-                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=makanan&id='+nota , 'print/checklist.print.php?set=snack&id='+nota, 'print/checklist.print.php?set=minuman&id='+nota);
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota , 'print/checklist.print.php?set=makanan&id='+nota , 'print/checklist.print.php?set=snack&id='+nota , 'print/checklist.print.php?set=minuman&id='+nota);
             }
         
+        } else {
+
+            if ($("#cekordertype").val()!='online') {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota );
+            } else {
+                windowList = new Array('print/nota.print.php?id='+nota , 'print/nota.print.php?id='+nota , 'print/checklist.print.php?set=check&id='+nota);
+            }
+
         }
 
         i = 0;

@@ -19,6 +19,10 @@
 
         include "components/laporan.page.php";
 
+    } elseif ($_GET['menu']=='logs') {
+
+        include "components/logs.page.php";
+
     } elseif ($_GET['menu']=='user') {
 
         include "components/user.page.php";

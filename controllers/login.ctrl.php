@@ -37,9 +37,9 @@
 			$_SESSION['passuser']     = $data['password'];
 			$_SESSION['role']		  = $data['roles_name'];
 			$_SESSION['order_type']		  = '';
-			echo 'ok';
+			echo $data['roles_name'];
 		} else {
-			echo 'Username atau Password Salah !';
+			echo 'salah';
 		}
 
 

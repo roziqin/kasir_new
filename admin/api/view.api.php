@@ -15,7 +15,7 @@ if ($func=='dasboard-omset') {
 
 } elseif ($func=='dasboard-itemsold') {
 
-	$query = "SELECT count(*) as jumlah FROM transaksi, transaksi_detail where transaksi_id=transaksi_detail_nota and  transaksi_bulan = '$bln' GROUP BY transaksi_tanggal";
+	$query = "SELECT count(*) as jumlah FROM transaksi, transaksi_detail where transaksi_nota=transaksi_detail_nota and  transaksi_bulan = '$bln' GROUP BY transaksi_tanggal";
 
 } elseif ($func=='listproduk') {
 
@@ -111,7 +111,28 @@ if ($func=='dasboard-omset') {
 	    $tgl22 = date("Y-m", strtotime($_POST['end']));
     }
 
-	$query ="SELECT transaksi_tanggal, transaksi_bulan, barang_nama, barang_id, sum(transaksi_detail_jumlah) as jumlah from transaksi, transaksi_detail, barang WHERE transaksi_id=transaksi_detail_nota and transaksi_detail_barang_id=barang_id and $text1 $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket $text2 ORDER BY jumlah DESC";
+	$query ="SELECT transaksi_tanggal, transaksi_bulan, barang_nama, barang_id, sum(transaksi_detail_jumlah) as jumlah from transaksi, transaksi_detail, barang WHERE transaksi_nota=transaksi_detail_nota and transaksi_detail_barang_id=barang_id and $text1 $ket BETWEEN '$tgl11' AND '$tgl22' GROUP BY $ket $text2 ORDER BY $ket ASC";
+
+} elseif ($func=='logs') {
+    
+    $ketlog = $_POST['ketlog']; 
+    $tgl11 = date("Y-m-j", strtotime($_POST['start']));
+    $tgl22 = date("Y-m-j", strtotime($_POST['end']));
+
+    if ($ketlog=="validasi") {
+        $query="SELECT * from  validasi WHERE validasi_tanggal BETWEEN '$tgl11' AND '$tgl22' ORDER BY validasi_id asc";
+
+    } elseif ($ketlog=="stok") {
+        $query="SELECT * from barang, log_stok, users where barang_id=barang and user=id and tanggal BETWEEN '$tgl11' AND '$tgl22' ORDER BY log_id asc";
+
+    } elseif ($ketlog=="harga") {
+        $query="SELECT * from barang, log_harga, users where barang.barang_id=log_harga.barang_id and user=id and tanggal BETWEEN '$tgl11' AND '$tgl22' ORDER BY log_id asc";
+
+    } elseif ($ketlog=="login") {
+        $query="SELECT * from log_user, users where user=id and login BETWEEN '$tgl11%' AND '$tgl22%' ORDER BY log_id asc";
+
+    }
+
 }
 
 
