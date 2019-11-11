@@ -576,8 +576,13 @@ if ($kond=='home' || $kond=='') { ?>
 					$('#listitem table').append(content);
 					$('.container__load').load('components/content/transaksi.content.php?kond=');
 
-					$('.btn-remove').on('click',function(){
-						console.log($(this).parent().parent().index());
+					$('.btn-remove').unbind('click').click(function() {
+                        var indexitem = $(this).parent().parent().index();
+                        var id = $(this).data('id');
+                        console.log("tambah "+indexitem+" "+id)
+                        
+                        removeItemTemp(id, indexitem);
+                        
 					});
 
 
@@ -786,8 +791,12 @@ if ($kond=='home' || $kond=='') { ?>
 						$('#listitem table').append(content);
 						$('.container__load').load('components/content/transaksi.content.php?kond=');
 
-						$('.btn-remove').on('click',function(){
-							console.log($(this).parent().parent().index());
+						$('.btn-remove').unbind('click').click(function() {
+                            var indexitem = $(this).parent().parent().index();
+                            var id = $(this).data('id');
+                        console.log("plusminus "+indexitem+" "+id)
+
+                            removeItemTemp(id, indexitem);
 						});
 
 						$('.btn-plusminus').on('click',function(){
@@ -867,6 +876,7 @@ if ($kond=='home') { ?>
 				$('.btn-remove').on('click',function(){
 					var indexitem = $(this).parent().parent().index();
 					var id = $(this).data('id');
+                        console.log("home "+indexitem+" "+id)
 
 					removeItemTemp(id, indexitem);
 				});
@@ -986,7 +996,15 @@ if ($kond=='home') { ?>
 				$('#total').append(formatRupiah(total.toString(), 'Rp. '));
 				*/
 
-				$('.container__load').load('components/content/transaksi.content.php?kond=home');
+                $('.container__load').load('components/content/transaksi.content.php?kond=home');
+                $('.btn-remove').unbind('click').click(function() {
+                    var indexitem = $(this).parent().parent().index();
+                    var id = $(this).data('id');
+                    console.log("tambah "+indexitem+" "+id)
+                    
+                    removeItemTemp(id, indexitem);
+                    
+                });
 				
             }
         });
